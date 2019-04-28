@@ -1,5 +1,6 @@
 from metadrive._xarray import get_drive
 from metatype import Dict
+import json
 
 
 class Row(Dict):
@@ -14,7 +15,7 @@ class Row(Dict):
             i = 1
 
         drive.read_csv(url, nrows=1, skiprows=i)
-        record = next(drive.df.iterrows())[1].to_dict()
+        record = json.loads(next(drive.df.iterrows())[1].to_json())
         record['-'] = url
         record['@'] = drive.spec + cls.__name__
         return cls(record)
@@ -25,7 +26,7 @@ class Row(Dict):
         drive.read_csv(url)
 
         for i, row in drive.df.iterrows():
-            record = row.to_dict()
+            record = json.loads(row.to_json())
             record['-'] = '{}#{}'.format(url, i)
             record['@'] = drive.spec + cls.__name__
             yield cls(record)
