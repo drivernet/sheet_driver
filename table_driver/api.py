@@ -12,12 +12,13 @@ class Row(Dict):
             url, i = url.rsplit('#', 1)
             i = int(i)
         else:
-            i = 1
+            i = 0
 
         drive.read_csv(url, nrows=1, skiprows=i)
         record = json.loads(next(drive.df.iterrows())[1].to_json())
-        record['-'] = url
+        record['-'] = '{}#{}'.format(url, i)
         record['@'] = drive.spec + cls.__name__
+
         return cls(record)
 
     @classmethod

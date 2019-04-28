@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='table_driver',
-    version='0.0.2',
+    version='0.0.3',
     description='Table driver.',
     url='https://github.com/drivernet/table_driver',
     author='Mindey',
